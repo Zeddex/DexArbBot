@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.13.35913.81 d17.13
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "DexArbBot", "DexArbBot.csproj", "{45A0312C-B0D6-47A1-8655-C48D828DECAA}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{45A0312C-B0D6-47A1-8655-C48D828DECAA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{45A0312C-B0D6-47A1-8655-C48D828DECAA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{45A0312C-B0D6-47A1-8655-C48D828DECAA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{45A0312C-B0D6-47A1-8655-C48D828DECAA}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {65888BF9-57EE-4B0C-AF0F-D1955BDFD5C2}
+	EndGlobalSection
+EndGlobal
