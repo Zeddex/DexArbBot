@@ -1,8 +1,8 @@
 ﻿using System.Numerics;
+using Spectre.Console;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
-using Spectre.Console;
 
 public class FlashLoan
 {

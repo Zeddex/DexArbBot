@@ -26,11 +26,11 @@
                     new TokenPair("USDC/DAI", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0x6B175474E89094C44Da98b954EedeAC495271d0F", 6, 18),
                     new TokenPair("USDC/FRAX", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0x853d955aCEf822Db058eb8505911ED77F175b99e", 6, 18),
                     new TokenPair("USDC/USDT", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0xdAC17F958D2ee523a2206206994597C13D831ec7", 6, 6),
+                    new TokenPair("USDC/WETH", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", 6, 18),
                     new TokenPair("USDT/LUSD", "0xdAC17F958D2ee523a2206206994597C13D831ec7", "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0", 6, 18),
                     new TokenPair("WETH/DAI", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6B175474E89094C44Da98b954EedeAC495271d0F", 18, 18),
                     new TokenPair("WETH/PEPE", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6982508145454Ce325dDbE47a25d4ec3d2311933", 18, 18),
                     new TokenPair("WETH/UNI", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", 18, 18),
-                    new TokenPair("WETH/USDC", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", 18, 6),
                     new TokenPair("WETH/WBTC", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599", 18, 8),
                 ]
             },
@@ -49,15 +49,14 @@
                 ],
                 TokenPairs =
                 [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
+                    new TokenPair("USDC/DAI", "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1", 6, 18),
+                    new TokenPair("USDC/FRAX", "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", "0x17FC002b466eEc40DaE837Fc4bE5c67993ddBd6F", 6, 18),
+                    new TokenPair("USDC/USDT", "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", "0xFd086bC7CD5C481DCC9C85ebE478A1C0b69FCbb9", 6, 6),
+                    new TokenPair("USDC/WETH", "0xaf88d065e77c8cC2239327C5EDb3A432268e5831", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", 6, 18),
+                    new TokenPair("WETH/DAI", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0xDA10009cBd5D07dd0CeCc66161FC93D7c9000da1", 18, 18),
+                    new TokenPair("WETH/PEPE", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0x25d887Ce7a35172C62FeBFD67a1856F20FaEbB00", 18, 18),
+                    new TokenPair("WETH/UNI", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0xFa7F8980b0f1E64A2062791cc3b0871572f1F7f0", 18, 18),
+                    new TokenPair("WETH/WBTC", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f", 18, 8),
 
                 ]
             },
@@ -73,15 +72,13 @@
                 ],
                 TokenPairs =
                 [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
+                    new TokenPair("USDC/DAI", "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E", "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70", 6, 18),
+                    new TokenPair("USDC/FRAX", "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E", "0xD24C2Ad096400B6FBcd2ad8B24E7acBc21A1da64", 6, 18),
+                    new TokenPair("USDC/USDT", "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E", "0x9702230A8Ea53601f5cD2dc00fDBc13d4dF4A8c7", 6, 6),
+                    new TokenPair("USDC/WETH", "0xB97EF9Ef8734C71904D8002F8b6Bc66Dd9c48a6E", "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8", 6, 18),
+                    new TokenPair("WETH/DAI", "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8", "0xd586E7F844cEa2F87f50152665BCbc2C279D8d70", 18, 18),
+                    new TokenPair("WETH/UNI", "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8", "0xf39f9671906d8630812f9d9863bBEf5D523c84Ab", 18, 18),
+                    new TokenPair("WETH/BTC", "0xe50fA9b3c56FfB159cB0FCA61F5c9D750e8128c8", "0x152b9d0FdC40C096757F570A51E494bd4b943E50", 18, 8),
                 ]
             },
             new()
@@ -97,15 +94,11 @@
                 ],
                 TokenPairs =
                 [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
+                    new TokenPair("USDC/DAI", "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb", 6, 18),
+                    new TokenPair("USDC/USDT", "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", "0xfde4C96c8593536E31F229EA8f37b2ADa2699bb2", 6, 6),
+                    new TokenPair("USDC/WETH", "0x833589fCD6eDb6E08f4c7C32D4f71b54bdA02913", "0x4200000000000000000000000000000000000006", 6, 18),
+                    new TokenPair("WETH/DAI", "0x4200000000000000000000000000000000000006", "0x50c5725949A6F0c72E6C4a641F24049A917DB0Cb", 18, 18),
+                    new TokenPair("WETH/WBTC", "0x4200000000000000000000000000000000000006", "0x0555E30da8f98308EdB960aa94C0Db47230d2B9c", 18, 8),
                 ]
             },
             new()
@@ -123,37 +116,13 @@
                 ],
                 TokenPairs =
                 [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
-                ]
-            },
-            new()
-            {
-                Network = Network.Fantom,
-                Dexes =
-                [
-                    new Dex { Name = "Sushiswap", RouterAddress = "0x1b02da8cb0d097eb8d57a175b88c7d8b47997506" },
-                    new Dex { Name = "FraxSwap", RouterAddress = "0x7D21C651Dd333306B35F2FeAC2a19FA1e1241545" },
-                    new Dex { Name = "SpookySwap", RouterAddress = "0xF491e7B69E4244ad4002BC14e878a34207E38c29" }
-                ],
-                TokenPairs =
-                [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
+                    new TokenPair("USDC/DAI", "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3", 6, 18),
+                    new TokenPair("USDC/FRAX", "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", "0x90C97F71E18723b0Cf0dfa30ee176Ab653E89F40", 6, 18),
+                    new TokenPair("USDC/WETH", "0x8AC76a51cc950d9822D68b83fE1Ad97B32Cd580d", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", 6, 18),
+                    new TokenPair("WETH/DAI", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0x1AF3F329e8BE154074D8769D1FFa4eE058B1DBc3", 18, 18),
+                    new TokenPair("WETH/PEPE", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0x25d887Ce7a35172C62FeBFD67a1856F20FaEbB00", 18, 18),
+                    new TokenPair("WETH/UNI", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0xBf5140A22578168FD562DCcF235E5D43A02ce9B1", 18, 18),
+                    new TokenPair("WETH/WBTC", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0x0555E30da8f98308EdB960aa94C0Db47230d2B9c", 18, 8),
                 ]
             },
             new()
@@ -167,15 +136,14 @@
                 ],
                 TokenPairs =
                 [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
+                    new TokenPair("USDC/DAI", "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", "0x2F733095B80A04b38b0D10cC884524a3d09b836a", 6, 18),
+                    new TokenPair("USDC/FRAX", "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", "0x2E3D870790dC77A83DD1d18184Acc7439A53f475", 6, 18),
+                    new TokenPair("USDC/USDT", "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58", 6, 6),
+                    new TokenPair("USDC/WETH", "0x0b2C639c533813f4Aa9D7837CAf62653d097Ff85", "0x4200000000000000000000000000000000000006", 6, 18),
+                    new TokenPair("USDT/LUSD", "0x94b008aA00579c1307B0EF2c499aD98a8ce58e58", "0xEB466342C4d449BC9f53A865D5Cb90586f405215", 6, 18),
+                    new TokenPair("WETH/DAI", "0x4200000000000000000000000000000000000006", "0x2F733095B80A04b38b0D10cC884524a3d09b836a", 18, 18),
+                    new TokenPair("WETH/UNI", "0x4200000000000000000000000000000000000006", "0x6fd9d7AD17242c41f7131d257212c54A0e816691", 18, 18),
+                    new TokenPair("WETH/WBTC", "0x4200000000000000000000000000000000000006", "0x68f180fcCe6836688e9084f035309E29Bf0A2095", 18, 8),
                 ]
             },
             new()
@@ -192,15 +160,14 @@
                 ],
                 TokenPairs =
                 [
-                    new TokenPair("USDC/DAI", "", "", 6, 18),
-                    new TokenPair("USDC/FRAX", "", "", 6, 18),
-                    new TokenPair("USDC/USDT", "", "", 6, 6),
-                    new TokenPair("USDT/LUSD", "", "", 6, 18),
-                    new TokenPair("WETH/DAI", "", "", 18, 18),
-                    new TokenPair("WETH/PEPE", "", "", 18, 18),
-                    new TokenPair("WETH/UNI", "", "", 18, 18),
-                    new TokenPair("WETH/USDC", "", "", 18, 6),
-                    new TokenPair("WETH/WBTC", "", "", 18, 8),
+                    new TokenPair("USDC/DAI", "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", 6, 18),
+                    new TokenPair("USDC/FRAX", "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", "0x45c32fA6DF82ead1e2EF74d17b76547EDdFaFF89", 6, 18),
+                    new TokenPair("USDC/USDT", "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", 6, 6),
+                    new TokenPair("USDC/WETH", "0x3c499c542cEF5E3811e1192ce70d8cC03d5c3359", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619", 6, 18),
+                    new TokenPair("USDT/LUSD", "0xc2132D05D31c914a87C6611C10748AEb04B58e8F", "0x23001f892c0C82b79303EDC9B9033cD190BB21c7", 6, 18),
+                    new TokenPair("WETH/DAI", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619", "0x8f3Cf7ad23Cd3CaDbD9735AFf958023239c6A063", 18, 18),
+                    new TokenPair("WETH/UNI", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619", "0xb33EaAd8d922B1083446DC23f610c2567fB5180f", 18, 18),
+                    new TokenPair("WETH/WBTC", "0x7ceB23fD6bC0adD59E62ac25578270cFf1b9f619", "0x1BFD67037B42Cf73acF2047067bd4F2C47D9BfD6", 18, 8),
                 ]
             },
         };

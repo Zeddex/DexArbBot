@@ -53,22 +53,21 @@ public class Logger
         }
 
         string url = $"https://api.telegram.org/bot{_telegramBotToken}/sendMessage";
-        var data = new FormUrlEncodedContent(new[]
-        {
+        var data = new FormUrlEncodedContent([
             new KeyValuePair<string, string>("chat_id", _chatId),
             new KeyValuePair<string, string>("text", message),
             new KeyValuePair<string, string>("parse_mode", "Markdown")
-        });
+        ]);
 
         try
         {
             using var httpClient = new HttpClient();
             await httpClient.PostAsync(url, data);
-            AnsiConsole.MarkupLine("✅ Telegram alert sent.");
+            AnsiConsole.MarkupLine("Telegram alert sent.");
         }
         catch (Exception ex)
         {
-            AnsiConsole.MarkupLine("❌ Telegram error: " + ex.Message);
+            AnsiConsole.MarkupLine("Telegram error: " + ex.Message);
         }
     }
 

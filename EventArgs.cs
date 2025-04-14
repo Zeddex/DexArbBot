@@ -6,9 +6,9 @@ public class ArbitrageEventArgs : EventArgs
     public string DexBuy { get; set; }
     public string DexSell { get; set; }
     public string Pair { get; set; }
-    public BigInteger BuyPrice { get; set; }
-    public BigInteger SellPrice { get; set; }
-    public BigInteger ProfitPercent { get; set; }
+    public decimal BuyPrice { get; set; }
+    public decimal SellPrice { get; set; }
+    public decimal ProfitPercent { get; set; }
 }
 
 public class FlashLoanEventArgs : EventArgs

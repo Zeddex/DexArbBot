@@ -1,6 +1,5 @@
 ﻿using System.Numerics;
 using Nethereum.Contracts;
-using Nethereum.Model;
 using Nethereum.Web3;
 using Nethereum.Util;
 
