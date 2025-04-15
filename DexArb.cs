@@ -23,7 +23,7 @@ public class DexArb
     public Contract Dex2Contract { get; set; }
     public TokenPair CurrentTokenPair { get; set; }
     public List<TokenPair>? TokenPairs { get; set; }
-    public BigInteger AmountIn { get; set; }
+    public BigInteger Amount { get; set; }
     public bool IsArbitrage { get; set; }
 
     public DexArb(DexV2Conf dexConf, (string dex1, string dex2) dexes, List<TokenPair> tokenPairs)
@@ -45,7 +45,7 @@ public class DexArb
 
         TokenPairs = tokenPairs;
 
-        AmountIn = Web3.Convert.ToWei(InputAmount, 6);  // amount in USDT
+        Amount = Web3.Convert.ToWei(InputAmount, 6);  // amount in USDT
     }
 
     public async Task Start()
@@ -68,8 +68,8 @@ public class DexArb
                     PairToken2 = CurrentTokenPair.Symbol.Split('/')[1];
 
                     var path = new List<string> { pair.TokenA, pair.TokenB };
-                    BigInteger dex1Out = await GetAmountOutV2(Dex1Contract, AmountIn, path);
-                    BigInteger dex2Out = await GetAmountOutV2(Dex2Contract, AmountIn, path);
+                    BigInteger dex1Out = await GetAmountOutV2(Dex1Contract, Amount, path);
+                    BigInteger dex2Out = await GetAmountOutV2(Dex2Contract, Amount, path);
 
                     AnsiConsole.MarkupLine(CurrentTokenPair.Symbol);
 
@@ -124,7 +124,13 @@ public class DexArb
 
             Logger.OnArbitrageFound(this, args);
 
-            //await FlashLoan.TriggerFlashLoan(pair.TokenA, pair.TokenB, dex1Out);
+            //await FlashLoan.TriggerFlashLoan(
+            //    CurrentTokenPair.TokenA, 
+            //    Amount, 
+            //    Dex1Contract.Address, 
+            //    Dex2Contract.Address, 
+            //    CurrentTokenPair.TokenA, 
+            //    CurrentTokenPair.TokenB);
         }
 
         else if (dex2Out < dex1Out)
@@ -146,7 +152,13 @@ public class DexArb
 
             Logger.OnArbitrageFound(this, args);
 
-            //await FlashLoan.TriggerFlashLoan(pair.TokenB, pair.TokenA, dex2Out);
+            //await FlashLoan.TriggerFlashLoan(
+            //    CurrentTokenPair.TokenA,
+            //    Amount,
+            //    Dex2Contract.Address,
+            //    Dex1Contract.Address,
+            //    CurrentTokenPair.TokenA,
+            //    CurrentTokenPair.TokenB);
         }
 
         else

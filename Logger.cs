@@ -49,7 +49,7 @@ public class Logger
                       $"📝 Tx Hash: {eventArgsFlash.TxHash}\n" +
                       $"🔄 Token in: {eventArgsFlash.TokenIn}\n" +
                       $"💸 Token out: {eventArgsFlash.TokenOut}\n" +
-                      $"💰 Amount in: {eventArgsFlash.AmountIn}";
+                      $"💰 Amount in: {eventArgsFlash.Amount}";
         }
 
         string url = $"https://api.telegram.org/bot{_telegramBotToken}/sendMessage";
@@ -91,7 +91,7 @@ public class Logger
             log = $"Flash loan executed: {eventArgsFlash.TxHash}\n" +
                 $"Token in: {eventArgsFlash.TokenIn}\n" +
                 $"Token out: {eventArgsFlash.TokenOut}\n" +
-                $"Amount in: {eventArgsFlash.AmountIn}\n";
+                $"Amount in: {eventArgsFlash.Amount}\n";
         }
 
         await File.AppendAllTextAsync("arbitrage.log", log);

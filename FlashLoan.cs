@@ -3,6 +3,10 @@ using Spectre.Console;
 using Nethereum.Web3;
 using Nethereum.Web3.Accounts;
 using Nethereum.Hex.HexTypes;
+using Nethereum.ABI.FunctionEncoding;
+using Nethereum.ABI.Encoders;
+using Nethereum.ABI.Model;
+using Nethereum.Hex.HexConvertors.Extensions;
 
 public class FlashLoan
 {
@@ -37,12 +41,34 @@ public class FlashLoan
         Web3 = new Web3(Account, jsonRpc);
     }
 
-    public async Task TriggerFlashLoan(string tokenIn, string tokenOut, BigInteger amountIn)
+    public async Task TriggerFlashLoan(
+        string asset,
+        BigInteger amount,
+        string router1,
+        string router2,
+        string tokenIn,
+        string tokenOut)
     {
         var contract = Web3.Eth.GetContract(Abi, _flashloanContract);
         var function = contract.GetFunction("requestFlashLoan");
 
-        var txHash = await function.SendTransactionAsync(Account.Address, new HexBigInteger(500_000), null, tokenIn, amountIn, new byte[0]);
+        var encoder = new ParametersEncoder();
+        var encodedParams = encoder.EncodeParameters(
+            [
+                new Parameter("address"),
+                new Parameter("address"),
+                new Parameter("address"),
+                new Parameter("address")
+            ], router1, router2, tokenIn, tokenOut);
+
+        var txHash = await function.SendTransactionAsync(
+            Account.Address,
+            new HexBigInteger(500_000), // gas
+            null,                       // value
+            asset,
+            amount,
+            encodedParams.ToHex()
+        );
 
         AnsiConsole.MarkupLine("[green]✅ Flash loan tx sent: [/]" + txHash);
 
@@ -51,7 +77,7 @@ public class FlashLoan
             TxHash = txHash,
             TokenIn = tokenIn,
             TokenOut = tokenOut,
-            AmountIn = amountIn
+            Amount = amount
         });
     }
 }

@@ -15,6 +15,6 @@ public class FlashLoanEventArgs : EventArgs
 {
     public string TokenIn { get; set; }
     public string TokenOut { get; set; }
-    public BigInteger AmountIn { get; set; }
+    public BigInteger Amount { get; set; }
     public string TxHash { get; set; }
 }
