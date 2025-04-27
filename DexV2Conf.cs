@@ -10,32 +10,6 @@
         {
             new()
             {
-                Network = Network.Ethereum,
-                Dexes =
-                [
-                    new Dex { Name = "Uniswap", RouterAddress = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D" },
-                    new Dex { Name = "Sushiswap", RouterAddress = "0xd9e1cE17f2641f24aE83637ab66a2CCA9C378B9F" },
-                    new Dex { Name = "PancakeSwap", RouterAddress = "0xEfF92A263d31888d860bD50809A8D171709b7b1c" },
-                    new Dex { Name = "ShibaSwap", RouterAddress = "0x03f7724180AA6b939894B5Ca4314783B0b36b329" },
-                    new Dex { Name = "FraxSwap", RouterAddress = "0xC14d550632db8592D1243Edc8B95b0Ad06703867" },
-                    new Dex { Name = "ApeSwap", RouterAddress = "0x5f509a3C3F16dF2Fba7bF84dEE1eFbce6BB85587" },
-                    new Dex { Name = "SmarDex", RouterAddress = "0xC33984ABcAe20f47a754eF78f6526FeF266c0C6F" }
-                ],
-                TokenPairs = 
-                [
-                    new TokenPair("USDC/DAI", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0x6B175474E89094C44Da98b954EedeAC495271d0F", 6, 18),
-                    new TokenPair("USDC/FRAX", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0x853d955aCEf822Db058eb8505911ED77F175b99e", 6, 18),
-                    new TokenPair("USDC/USDT", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0xdAC17F958D2ee523a2206206994597C13D831ec7", 6, 6),
-                    new TokenPair("USDC/WETH", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", 6, 18),
-                    new TokenPair("USDT/LUSD", "0xdAC17F958D2ee523a2206206994597C13D831ec7", "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0", 6, 18),
-                    new TokenPair("WETH/DAI", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6B175474E89094C44Da98b954EedeAC495271d0F", 18, 18),
-                    new TokenPair("WETH/PEPE", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6982508145454Ce325dDbE47a25d4ec3d2311933", 18, 18),
-                    new TokenPair("WETH/UNI", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", 18, 18),
-                    new TokenPair("WETH/WBTC", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599", 18, 8),
-                ]
-            },
-            new()
-            {
                 Network = Network.Arbitrum,
                 Dexes =
                 [
@@ -57,7 +31,6 @@
                     new TokenPair("WETH/PEPE", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0x25d887Ce7a35172C62FeBFD67a1856F20FaEbB00", 18, 18),
                     new TokenPair("WETH/UNI", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0xFa7F8980b0f1E64A2062791cc3b0871572f1F7f0", 18, 18),
                     new TokenPair("WETH/WBTC", "0x82aF49447D8a07e3bd95BD0d56f35241523fBab1", "0x2f2a2543B76A4166549F7aaB2e75Bef0aefC5B0f", 18, 8),
-
                 ]
             },
             new()
@@ -123,6 +96,32 @@
                     new TokenPair("WETH/PEPE", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0x25d887Ce7a35172C62FeBFD67a1856F20FaEbB00", 18, 18),
                     new TokenPair("WETH/UNI", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0xBf5140A22578168FD562DCcF235E5D43A02ce9B1", 18, 18),
                     new TokenPair("WETH/WBTC", "0x2170Ed0880ac9A755fd29B2688956BD959F933F8", "0x0555E30da8f98308EdB960aa94C0Db47230d2B9c", 18, 8),
+                ]
+            },
+            new()
+            {
+                Network = Network.Ethereum,
+                Dexes =
+                [
+                    new Dex { Name = "Uniswap", RouterAddress = "0x7a250d5630B4cF539739dF2C5dAcb4c659F2488D" },
+                    new Dex { Name = "Sushiswap", RouterAddress = "0xd9e1cE17f2641f24aE83637ab66a2CCA9C378B9F" },
+                    new Dex { Name = "PancakeSwap", RouterAddress = "0xEfF92A263d31888d860bD50809A8D171709b7b1c" },
+                    new Dex { Name = "ShibaSwap", RouterAddress = "0x03f7724180AA6b939894B5Ca4314783B0b36b329" },
+                    new Dex { Name = "FraxSwap", RouterAddress = "0xC14d550632db8592D1243Edc8B95b0Ad06703867" },
+                    new Dex { Name = "ApeSwap", RouterAddress = "0x5f509a3C3F16dF2Fba7bF84dEE1eFbce6BB85587" },
+                    new Dex { Name = "SmarDex", RouterAddress = "0xC33984ABcAe20f47a754eF78f6526FeF266c0C6F" }
+                ],
+                TokenPairs =
+                [
+                    new TokenPair("USDC/DAI", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0x6B175474E89094C44Da98b954EedeAC495271d0F", 6, 18),
+                    new TokenPair("USDC/FRAX", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0x853d955aCEf822Db058eb8505911ED77F175b99e", 6, 18),
+                    new TokenPair("USDC/USDT", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0xdAC17F958D2ee523a2206206994597C13D831ec7", 6, 6),
+                    new TokenPair("USDC/WETH", "0xA0b86991c6218b36c1d19D4a2e9Eb0cE3606EB48", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", 6, 18),
+                    new TokenPair("USDT/LUSD", "0xdAC17F958D2ee523a2206206994597C13D831ec7", "0x5f98805A4E8be255a32880FDeC7F6728C6568bA0", 6, 18),
+                    new TokenPair("WETH/DAI", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6B175474E89094C44Da98b954EedeAC495271d0F", 18, 18),
+                    new TokenPair("WETH/PEPE", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x6982508145454Ce325dDbE47a25d4ec3d2311933", 18, 18),
+                    new TokenPair("WETH/UNI", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x1f9840a85d5aF5bf1D1762F925BDADdC4201F984", 18, 18),
+                    new TokenPair("WETH/WBTC", "0xC02aaA39b223FE8D0A0e5C4F27eAD9083C756Cc2", "0x2260FAC5E5542a773Aa44fBCfeDf7C193bc2C599", 18, 8),
                 ]
             },
             new()

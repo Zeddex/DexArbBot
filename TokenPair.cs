@@ -1,13 +1,13 @@
 ﻿public class TokenPair(
     string symbol,
-    string tokenA,
-    string tokenB,
-    int decimalsA = 18,
-    int decimalsB = 18)
+    string tokenInAddress,
+    string tokenOutAddress,
+    int decimalsIn = 18,
+    int decimalsOut = 18)
 {
     public string Symbol = symbol;
-    public string TokenA = tokenA;
-    public string TokenB = tokenB;
-    public int DecimalsA = decimalsA;
-    public int DecimalsB = decimalsB;
+    public string TokenInAddress = tokenInAddress;
+    public string TokenOutAddress = tokenOutAddress;
+    public int DecimalsIn = decimalsIn;
+    public int DecimalsOut = decimalsOut;
 }

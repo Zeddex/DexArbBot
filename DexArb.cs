@@ -3,49 +3,47 @@ using Spectre.Console;
 using Nethereum.Contracts;
 using Nethereum.Web3;
 
+// TODO: auto-fetch live top pairs using DEX APIs
 public class DexArb
 {
     private readonly string _routerV2Abi = "[{\"name\":\"getAmountsOut\",\"type\":\"function\",\"stateMutability\":\"view\",\"inputs\":[{\"name\":\"amountIn\",\"type\":\"uint256\"},{\"name\":\"path\",\"type\":\"address[]\"}],\"outputs\":[{\"name\":\"amounts\",\"type\":\"uint256[]\"}]}]";
     private readonly string _routerV3Abi = "";
 
-    const int InputAmount = 1000; // Amount to swap in USD
+    const int InputAmount = 1; // Amount to swap (USD or ETH)
+    const decimal ProfitThresholdPercent = 0.5m; // 0.5%
+    const decimal FlashloanPremiumPercent = 0.09m; // 0.09% typical Aave fee
 
     public Logger Logger { get; set; } = new();
     public FlashLoan FlashLoan { get; set; }
-    public ContractHelper Helper { get; set; }
     public Web3 Web3 { get; set; }
     public DexV2Conf DexConf { get; set; }
-    public string Dex1Name { get; set; }
-    public string Dex2Name { get; set; }
-    public string PairToken1 { get; set; }
-    public string PairToken2 { get; set; }
-    public Contract Dex1Contract { get; set; }
-    public Contract Dex2Contract { get; set; }
+    public string DexAName { get; set; }
+    public string DexBName { get; set; }
+    public string PairTokenA { get; set; }
+    public string PairTokenB { get; set; }
+    public Contract DexARouter { get; set; }
+    public Contract DexBRouter { get; set; }
     public TokenPair CurrentTokenPair { get; set; }
     public List<TokenPair>? TokenPairs { get; set; }
-    public BigInteger Amount { get; set; }
     public bool IsArbitrage { get; set; }
 
-    public DexArb(DexV2Conf dexConf, (string dex1, string dex2) dexes, List<TokenPair> tokenPairs)
+    public DexArb(DexV2Conf dexConf, (string dexA, string dexB) dexes, List<TokenPair> tokenPairs)
     {
         var rpc = Rpc.GetRpcUrl(dexConf.Network);
         Web3 = new(rpc);
         DexConf = dexConf;
 
-        Helper = new(dexConf.Network);
         FlashLoan = new(dexConf.Network, Logger);
 
-        Dex1Name = dexes.dex1;
-        Dex2Name = dexes.dex2;
+        DexAName = dexes.dexA;
+        DexBName = dexes.dexB;
 
-        string? dex1RouterAddr = dexConf.Dexes.Where(n => n.Name == dexes.dex1).Select(d => d).FirstOrDefault()?.RouterAddress;
-        Dex1Contract = Web3.Eth.GetContract(_routerV2Abi, dex1RouterAddr);
-        string? dex2RouterAddr = dexConf.Dexes.Where(n => n.Name == dexes.dex2).Select(d => d).FirstOrDefault()?.RouterAddress;
-        Dex2Contract = Web3.Eth.GetContract(_routerV2Abi, dex2RouterAddr);
+        string? dex1RouterAddr = dexConf.Dexes.Where(n => n.Name == dexes.dexA).Select(d => d).FirstOrDefault()?.RouterAddress;
+        DexARouter = Web3.Eth.GetContract(_routerV2Abi, dex1RouterAddr);
+        string? dex2RouterAddr = dexConf.Dexes.Where(n => n.Name == dexes.dexB).Select(d => d).FirstOrDefault()?.RouterAddress;
+        DexBRouter = Web3.Eth.GetContract(_routerV2Abi, dex2RouterAddr);
 
         TokenPairs = tokenPairs;
-
-        Amount = Web3.Convert.ToWei(InputAmount, 6);  // amount in USDT
     }
 
     public async Task Start()
@@ -54,6 +52,16 @@ public class DexArb
 
         await CheckPairs();
     }
+
+    //private async Task CheckAllPairs()
+    //{
+    //    var prices = await Scanner.FetchPricesAsync(Web3, Dex1Router.Address, TokenPairs);
+
+    //    foreach (var pair in prices)
+    //    {
+    //        Console.WriteLine($"{pair.Key}: {pair.Value:F6}");
+    //    }
+    //}
 
     private async Task CheckPairs()
     {
@@ -64,21 +72,10 @@ public class DexArb
                 foreach (var pair in TokenPairs)
                 {
                     CurrentTokenPair = pair;
-                    PairToken1 = CurrentTokenPair.Symbol.Split('/')[0];
-                    PairToken2 = CurrentTokenPair.Symbol.Split('/')[1];
+                    PairTokenA = CurrentTokenPair.Symbol.Split('/')[0];
+                    PairTokenB = CurrentTokenPair.Symbol.Split('/')[1];
 
-                    var path = new List<string> { pair.TokenA, pair.TokenB };
-                    BigInteger dex1Out = await GetAmountOutV2(Dex1Contract, Amount, path);
-                    BigInteger dex2Out = await GetAmountOutV2(Dex2Contract, Amount, path);
-
-                    AnsiConsole.MarkupLine(CurrentTokenPair.Symbol);
-
-                    decimal dex1OutDec = (decimal)dex1Out / (decimal)Math.Pow(10, CurrentTokenPair.DecimalsB);
-                    decimal dex2OutDec = (decimal)dex2Out / (decimal)Math.Pow(10, CurrentTokenPair.DecimalsB);
-                    AnsiConsole.MarkupLine($"{Dex1Name}: {dex1OutDec:F6}");
-                    AnsiConsole.MarkupLine($"{Dex2Name}: {dex2OutDec:F6}");
-
-                    await CalculateProfit(dex1OutDec, dex2OutDec);
+                    await CheckArbitrage();                 
                 }
             }
             catch (Exception ex)
@@ -89,94 +86,107 @@ public class DexArb
         }
     }
 
-    private async Task<BigInteger> GetAmountOutV2(Contract router, BigInteger amountIn, List<string> path)
+    private async Task CheckArbitrage()
     {
-        var getAmountsOut = router.GetFunction("getAmountsOut");
-        var result = await getAmountsOut.CallAsync<List<BigInteger>>(amountIn, path.ToArray());
-        return result[1];
-    }
+        decimal dexAPrice = await Helper.GetPriceAsync(
+            Web3,
+            DexARouter.Address,
+            CurrentTokenPair.TokenInAddress,
+            CurrentTokenPair.TokenOutAddress,
+            CurrentTokenPair.DecimalsIn,
+            CurrentTokenPair.DecimalsOut,
+            InputAmount
+        );
 
-    private async Task<BigInteger> GetAmountOutV3(Contract router, BigInteger amountIn, List<string> path)
-    {
-        return 0;
-    }
+        decimal dexBPrice = await Helper.GetPriceAsync(
+            Web3,
+            DexBRouter.Address,
+            CurrentTokenPair.TokenInAddress,
+            CurrentTokenPair.TokenOutAddress,
+            CurrentTokenPair.DecimalsIn,
+            CurrentTokenPair.DecimalsOut,
+            InputAmount
+        );
 
-    private async Task CalculateProfit(decimal dex1Out, decimal dex2Out)
-    {
-        decimal profitPct;
-        
-        if (dex1Out < dex2Out)
+        AnsiConsole.MarkupLine($"Dex: {DexAName}. {CurrentTokenPair.Symbol} price: {dexAPrice:F6} {PairTokenB} per {PairTokenA}");
+        AnsiConsole.MarkupLine($"Dex: {DexBName}. {CurrentTokenPair.Symbol} price: {dexBPrice:F6} {PairTokenB} per {PairTokenA}");
+
+        if (dexAPrice <= 0 || dexBPrice <= 0) return;
+
+        decimal profitPercent = 0;
+        decimal amountOut = 0;
+        string dexBuy = "";
+        string dexSell = "";
+
+        if (dexAPrice < dexBPrice)
         {
-            profitPct = PctCalculate(dex1Out, dex2Out);
+            amountOut = dexBPrice;
+            profitPercent = ((dexBPrice - dexAPrice) / dexAPrice) * 100;
+            dexBuy = DexBName;
+            dexSell = DexAName;
+        }
+        else if (dexBPrice < dexAPrice)
+        {
+            amountOut = dexAPrice;
+            profitPercent = ((dexAPrice - dexBPrice) / dexBPrice) * 100;
+            dexBuy = DexAName;
+            dexSell = DexBName;
+        }
 
-            AnsiConsole.MarkupLine($"Buy {PairToken2} on {Dex1Name}, Sell {PairToken2} on {Dex2Name}");
+        if (profitPercent >= ProfitThresholdPercent)
+        {
+            string dex = dexSell == DexAName ? DexARouter.Address : DexBRouter.Address;
+            string tokenIn = dexSell == DexAName ? CurrentTokenPair.TokenInAddress : CurrentTokenPair.TokenOutAddress;
+            string tokenOut = dexSell == DexAName ? CurrentTokenPair.TokenOutAddress : CurrentTokenPair.TokenInAddress;
+            int decimalsIn = dexSell == DexAName ? CurrentTokenPair.DecimalsIn : CurrentTokenPair.DecimalsOut;
+            int decimalsOut = dexSell == DexAName ? CurrentTokenPair.DecimalsOut : CurrentTokenPair.DecimalsIn;
 
+            var sellPrice = await Helper.GetAmountOutV2(
+                Web3,
+                dex,
+                tokenIn,
+                tokenOut,
+                decimalsIn,
+                decimalsOut,
+                amountOut
+            );
+
+            decimal flashloanPremium = InputAmount * (FlashloanPremiumPercent / 100m);
+            decimal minimumProfitThreshold = InputAmount * (ProfitThresholdPercent / 100m);
+            decimal minRequired = InputAmount + flashloanPremium + minimumProfitThreshold;
+
+            decimal profit = sellPrice.output - InputAmount;
+            profitPercent = (profit / InputAmount) * 100m;
+
+            bool isProfitable = sellPrice.output > minRequired;
+
+            IsArbitrage = isProfitable;
+        }
+
+        if (IsArbitrage)
+        {
             var args = new ArbitrageEventArgs
             {
                 Network = DexConf.Network,
-                DexBuy = Dex1Name,
-                DexSell = Dex2Name,
                 Pair = CurrentTokenPair.Symbol,
-                BuyPrice = dex1Out,
-                SellPrice = dex2Out,
-                ProfitPercent = profitPct
+                DexBuy = dexBuy,
+                DexSell = dexSell,
+                BuyPrice = dexBuy == DexAName ? dexAPrice : dexBPrice,
+                SellPrice = dexSell == DexAName ? dexAPrice : dexBPrice,
+                ProfitPercent = profitPercent
             };
 
             Logger.OnArbitrageFound(this, args);
 
-            //await FlashLoan.TriggerFlashLoan(
-            //    CurrentTokenPair.TokenA, 
-            //    Amount, 
-            //    Dex1Contract.Address, 
-            //    Dex2Contract.Address, 
-            //    CurrentTokenPair.TokenA, 
-            //    CurrentTokenPair.TokenB);
+            await FlashLoan.TriggerFlashLoan(
+                CurrentTokenPair.TokenInAddress,
+                Amount,
+                dexBuy == DexAName ? DexARouter.Address : DexBRouter.Address,
+                dexSell == DexBName ? DexBRouter.Address : DexARouter.Address,
+                CurrentTokenPair.TokenInAddress,
+                CurrentTokenPair.TokenOutAddress);
         }
 
-        else if (dex2Out < dex1Out)
-        {
-            profitPct = PctCalculate(dex2Out, dex1Out);
-
-            AnsiConsole.MarkupLine($"Buy {PairToken2} on {Dex2Name}, Sell {PairToken2} on {Dex1Name}");
-
-            var args = new ArbitrageEventArgs
-            {
-                Network = DexConf.Network,
-                DexBuy = Dex2Name,
-                DexSell = Dex1Name,
-                Pair = CurrentTokenPair.Symbol,
-                BuyPrice = dex2Out,
-                SellPrice = dex1Out,
-                ProfitPercent = profitPct
-            };
-
-            Logger.OnArbitrageFound(this, args);
-
-            //await FlashLoan.TriggerFlashLoan(
-            //    CurrentTokenPair.TokenA,
-            //    Amount,
-            //    Dex2Contract.Address,
-            //    Dex1Contract.Address,
-            //    CurrentTokenPair.TokenA,
-            //    CurrentTokenPair.TokenB);
-        }
-
-        else
-        {
-            AnsiConsole.MarkupLine("No arbitrage");
-            return;
-        }
-
-        IsArbitrage = true;
-        Task.Delay(1000).Wait();
-
-
-        decimal PctCalculate(decimal value1, decimal value2)
-        {
-            decimal percentage = (value2 - value1) / value1 * 100;
-            AnsiConsole.MarkupLine($"Profit percentage: {percentage:F2}%");
-
-            return percentage;
-        }
+        await Task.Delay(1000);
     }
 }

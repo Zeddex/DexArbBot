@@ -30,14 +30,19 @@ public class Logger
     private async Task SendTelegramAlert(EventArgs args)
     {
         string message;
+        string PairTokenA;
+        string PairTokenB;
 
         if (args is ArbitrageEventArgs eventArgsArb)
         {
+            PairTokenA = eventArgsArb.Pair.Split('/')[0];
+            PairTokenB = eventArgsArb.Pair.Split('/')[1];
+
             message = $"🚨 *Arbitrage Detected!*\n" +
                       $"🌐 Network: {eventArgsArb.Network}\n" +
                       $"🔄 Pair: {eventArgsArb.Pair}\n" +
-                      $"💰 Buy on {eventArgsArb.DexBuy}: {eventArgsArb.BuyPrice:F6}\n" +
-                      $"💸 Sell on {eventArgsArb.DexSell}: {eventArgsArb.SellPrice:F6}\n" +
+                      $"💰 Buy on {eventArgsArb.DexBuy}: {eventArgsArb.BuyPrice:F6} {PairTokenB} per {PairTokenA}\n" +
+                      $"💰 Sell on {eventArgsArb.DexSell}: {eventArgsArb.SellPrice:F6} {PairTokenB} per {PairTokenA}\n" +
                       $"📊 Profit: {eventArgsArb.ProfitPercent:F2}%";
         }
 
@@ -49,7 +54,7 @@ public class Logger
                       $"📝 Tx Hash: {eventArgsFlash.TxHash}\n" +
                       $"🔄 Token in: {eventArgsFlash.TokenIn}\n" +
                       $"💸 Token out: {eventArgsFlash.TokenOut}\n" +
-                      $"💰 Amount in: {eventArgsFlash.Amount}";
+                      $"💰 Amount: {eventArgsFlash.Amount}";
         }
 
         string url = $"https://api.telegram.org/bot{_telegramBotToken}/sendMessage";
@@ -63,7 +68,7 @@ public class Logger
         {
             using var httpClient = new HttpClient();
             await httpClient.PostAsync(url, data);
-            AnsiConsole.MarkupLine("Telegram alert sent.");
+            //AnsiConsole.MarkupLine("Telegram alert sent.");
         }
         catch (Exception ex)
         {
