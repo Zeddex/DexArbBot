@@ -2,6 +2,7 @@
 using Spectre.Console;
 using Nethereum.Contracts;
 using Nethereum.Web3;
+using Nethereum.Util;
 
 // TODO: auto-fetch live top pairs using DEX APIs
 public class DexArb
@@ -180,7 +181,7 @@ public class DexArb
 
             await FlashLoan.TriggerFlashLoan(
                 CurrentTokenPair.TokenInAddress,
-                Amount,
+                UnitConversion.Convert.ToWei(InputAmount, CurrentTokenPair.DecimalsIn),
                 dexBuy == DexAName ? DexARouter.Address : DexBRouter.Address,
                 dexSell == DexBName ? DexBRouter.Address : DexARouter.Address,
                 CurrentTokenPair.TokenInAddress,
